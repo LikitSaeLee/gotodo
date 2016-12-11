@@ -8,7 +8,7 @@ import (
 // Load loads all the routes
 func Load() *gin.Engine {
 	r := gin.Default()
-	r.LoadHTMLGlob("templates//*")
+	r.LoadHTMLGlob("template/*")
 
 	r.GET("/", server.GetIndex)
 	r.GET("/login", server.GetLogin)
