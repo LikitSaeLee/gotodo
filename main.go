@@ -19,6 +19,10 @@ func main() {
 		})
 	})
 
+	r.GET("/login", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "login.tmpl.html", nil)
+	})
+
 	r.POST("/todo/add", func(c *gin.Context) {
 		newID := todos[len(todos)-1].ID + 1
 		newTodo := todo.Todo{ID: newID, Description: c.PostForm("todo"), Completed: false}
