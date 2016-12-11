@@ -10,11 +10,11 @@ import (
 
 func main() {
 	r := gin.Default()
-	r.LoadHTMLGlob("templates/**/*.html")
+	r.LoadHTMLGlob("templates//*")
 	todos := todo.GetMockData()
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
+		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
 			"Todos": todos,
 		})
 	})
