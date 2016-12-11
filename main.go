@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"github.com/likitsaelee/gotodo/todo"
 	"gopkg.in/gin-gonic/gin.v1"
+	"log"
 	"net/http"
+	"strconv"
 )
 
 func main() {
@@ -20,11 +21,24 @@ func main() {
 
 	r.POST("/todo/add", func(c *gin.Context) {
 		newID := todos[len(todos)-1].ID + 1
-		newTodo := todo.Todo{ID: newID, Description: c.PostForm("todo")}
+		newTodo := todo.Todo{ID: newID, Description: c.PostForm("todo"), Completed: false}
 		todos = append(todos, newTodo)
 		c.Redirect(http.StatusMovedPermanently, "/")
 	})
 
-	fmt.Printf("Running on port 8080...")
+	r.POST("/todo/complete", func(c *gin.Context) {
+		id, err := strconv.Atoi(c.PostForm("id"))
+		if err == nil {
+			for i, todo := range todos {
+				if id == todo.ID {
+					todos[i].Completed = true
+				}
+			}
+		}
+
+		c.Redirect(http.StatusMovedPermanently, "/")
+	})
+
+	log.Println("Running on port 8080...")
 	r.Run()
 }
