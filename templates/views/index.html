@@ -31,6 +31,10 @@
               <input type="text" name="id" value="{{ .ID }}" class="hidden">
               <button type="submit" class="btn btn-primary btn-sm">Mark As Complete</button>
             </form>
+            <form action="todo/delete" method="post">
+              <input type="text" name="id" value="{{ .ID }}" class="hidden">
+              <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+            </form>
           </td>
         </tr>
         {{ end }}
