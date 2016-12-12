@@ -2,12 +2,19 @@ package router
 
 import (
 	"bytes"
+	"github.com/likitsaelee/gotodo/todo"
 	"gopkg.in/gin-gonic/gin.v1"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"testing"
 )
+
+func TestMain(m *testing.M) {
+	todo.Todos = []todo.Todo{}
+	os.Exit(m.Run())
+}
 
 func TestGetIndexReturnStatusOK(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -79,6 +86,6 @@ func TestPostCompleteTodoReturnStatusRedirect(t *testing.T) {
 	r.ServeHTTP(res, req)
 
 	if res.Code != http.StatusMovedPermanently {
-		t.Fatal("Expect response to have status redirect.")
+		t.Fatal("Expect response to have status redirect, but got:", res.Code)
 	}
 }
