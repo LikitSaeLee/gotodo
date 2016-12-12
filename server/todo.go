@@ -34,15 +34,12 @@ func PostDeleteTodo(c *gin.Context) {
 
 // PostCompleteTodo complete todo
 func PostCompleteTodo(c *gin.Context) {
-	todos := todo.GetMockData()
 	id, err := strconv.Atoi(c.PostForm("id"))
-	if err == nil {
-		for i, todo := range todos {
-			if id == todo.ID {
-				todos[i].Completed = true
-			}
-		}
+	if err != nil {
+		c.String(http.StatusNotFound, "Unable to find todo", nil)
 	}
+	todoItem := todo.GetTodo(id)
+	todoItem.SetCompleted()
 
 	c.Redirect(http.StatusMovedPermanently, "/")
 }
