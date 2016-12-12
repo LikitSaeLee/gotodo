@@ -6,9 +6,9 @@ import (
 )
 
 // Load loads all the routes
-func Load() *gin.Engine {
+func Load(tmplPath string) *gin.Engine {
 	r := gin.Default()
-	r.LoadHTMLGlob("template/*")
+	r.LoadHTMLGlob(tmplPath)
 
 	r.GET("/", server.GetIndex)
 	r.GET("/login", server.GetLogin)

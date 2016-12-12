@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	r := router.Load()
+	r := router.Load("template/*")
 	log.Println("Running on port 8080...")
 	r.Run()
 }
